@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+.sideNavAccordian {
+  box-shadow: none !important;
+}
+
+.sideNavAccordian::before {
+  background-color: transparent !important;
+}
+
+.MuiAccordionSummary-content {
+  margin: 10px 0 !important;
+}
+
+.Mui-selected.MuiListItemButton-root {
+  background-color: #cfe3ff !important;
+}
