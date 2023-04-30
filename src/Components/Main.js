@@ -95,7 +95,7 @@ function Main() {
       {filteredChats?.map((chat, index) => {
         return (
           <MessageBubble
-            key={index}
+            key={chat.timestamp || index}
             alignLeft={chat?.sender_id !== currentUser?.id}
             message={chat.message}
             image={
