@@ -10,26 +10,10 @@ const chatReducer = (state = initialState, action) => {
         case 'SET_USERS':
             return {...state, users: action.payload};
         case 'UPDATE_CHAT_WITH_USER':
-            if(!action.user_id || !action.message){
-                return {...state};
-            }
-            const currentUserIndex = state.users.find((user) => user.id === action.user_id);
-            let newUsersObject = [...state.users];
-            newUsersObject[currentUserIndex].timestamp = new Date();
-            newUsersObject = newUsersObject.sort((a, b) => new Date(b.timestamp || null) - new Date(a.timestamp || null))
             return {
-              ...state,
-              chats: {
-                ...state.chats,
-                [action.user_id]: {
-                  messages: [
-                    action.message,
-                    ...(state?.action?.user_id?.messages || []),
-                  ],
-                },
-              },
-              users: newUsersObject,
-            };
+                ...state,
+                chats: [action.message, ...state.chats]
+            }
         case 'SET_SELECTED_USER':
             return {
                 ...state,
