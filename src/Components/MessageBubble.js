@@ -1,15 +1,21 @@
 import React from "react";
 import AppCard from "./AppCard";
-import { Avatar, Typography } from "@mui/material";
+import { Avatar, Typography, Badge } from "@mui/material";
 
 function MessageBubble({ alignLeft, message, image }) {
   return (
     <div style={{ margin: "10px 0", display: "flex" }}>
       {alignLeft && image ? (
-        <Avatar
-          sx={{ backgroundColor: "#000", marginRight: "5px" }}
-          src={image}
-        />
+        <div style={{ marginRight: "5px" }}>
+          <Badge
+            color="success"
+            variant="dot"
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            overlap="circular"
+          >
+            <Avatar sx={{ backgroundColor: "#000" }} src={image} />
+          </Badge>
+        </div>
       ) : null}
       <AppCard
         style={{
@@ -25,10 +31,19 @@ function MessageBubble({ alignLeft, message, image }) {
         </Typography>
       </AppCard>
       {!alignLeft && image ? (
-        <Avatar
-          sx={{ backgroundColor: "#000", marginLeft: "5px" }}
-          src={image}
-        />
+        <div style={{ marginLeft: "5px" }}>
+          <Badge
+            color="success"
+            variant="dot"
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            overlap="circular"
+          >
+            <Avatar
+              sx={{ backgroundColor: "#000", marginLeft: "5px" }}
+              src={image}
+            />
+          </Badge>
+        </div>
       ) : null}
     </div>
   );
