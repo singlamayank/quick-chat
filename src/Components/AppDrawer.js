@@ -1,37 +1,85 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
 import Avatar from "@mui/material/Avatar";
-import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
-import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AppCard from './AppCard';
-import { getWindowDimensions } from '../helper';
-import MessageBubble from './MessageBubble';
-import Main from './Main';
-import { getUsers, setCurrentUser } from '../Redux/chatActions';
-import { useDispatch, useSelector } from 'react-redux';
-import ContactButton from './ContactButton';
-import SideNavUsers from './SideNavUsers';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import SwitchUserDialog from './SwitchUserDialog';
+import ListItemText from "@mui/material/ListItemText";
+import MailIcon from "@mui/icons-material/Mail";
+import MenuIcon from "@mui/icons-material/Menu";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AppCard from "./AppCard";
+import { getWindowDimensions } from "../helper";
+import MessageBubble from "./MessageBubble";
+import Main from "./Main";
+import { getUsers, setCurrentUser } from "../Redux/chatActions";
+import { useDispatch, useSelector } from "react-redux";
+import ContactButton from "./ContactButton";
+import SideNavUsers from "./SideNavUsers";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import SwitchUserDialog from "./SwitchUserDialog";
+import Stack from "@mui/material/Stack";
+import { styled } from "@mui/material/styles";
+import Switch from "@mui/material/Switch";
+import BoltIcon from "@mui/icons-material/Bolt";
 
 const drawerWidth = 240;
+
+const AntSwitch = styled(Switch)(({ theme }) => ({
+  width: 28,
+  height: 16,
+  padding: 0,
+  display: "flex",
+  "&:active": {
+    "& .MuiSwitch-thumb": {
+      width: 15,
+    },
+    "& .MuiSwitch-switchBase.Mui-checked": {
+      transform: "translateX(9px)",
+    },
+  },
+  "& .MuiSwitch-switchBase": {
+    padding: 4,
+    "&.Mui-checked": {
+      transform: "translateX(12px)",
+      color: "#fff",
+      "& + .MuiSwitch-track": {
+        opacity: 1,
+        backgroundColor: "#0f4cff",
+      },
+    },
+  },
+  "& .MuiSwitch-thumb": {
+    boxShadow: "0 2px 4px 0 rgb(0 35 11 / 20%)",
+    width: 8,
+    height: 8,
+    borderRadius: 6,
+    transition: theme.transitions.create(["width"], {
+      duration: 200,
+    }),
+  },
+  "& .MuiSwitch-track": {
+    borderRadius: 16 / 2,
+    opacity: 1,
+    backgroundColor:
+      theme.palette.mode === "dark"
+        ? "rgba(255,255,255,.35)"
+        : "rgba(0,0,0,.25)",
+    boxSizing: "border-box",
+  },
+}));
 
 export default function AppDrawer(props) {
   const { window } = props;
@@ -45,15 +93,44 @@ export default function AppDrawer(props) {
   const users = useSelector((state) => state.users);
   React.useEffect(() => {
     dispatch(getUsers());
-  }, [dispatch])
+  }, [dispatch]);
   React.useEffect(() => {
-    if(currentUser === null && users?.length){
-      dispatch(setCurrentUser())
+    if (currentUser === null && users?.length) {
+      dispatch(setCurrentUser());
     }
-  },[currentUser, dispatch, users])
+  }, [currentUser, dispatch, users]);
   const [openSwitchUserDialog, setOpenSwitchUserDialog] = React.useState(false);
   const drawer = (
     <div>
+      <div
+        style={{
+          marginTop: "10px",
+          display: "inline-block",
+          justifyContent: "center",
+          marginLeft: "20px",
+        }}
+      >
+        <BoltIcon
+          sx={{
+            height: 45,
+            width: 45,
+            fill: "#0f4cff",
+            borderRadius: 25,
+            backgroundColor: "#d4e1ff",
+          }}
+        />
+        <Typography
+          sx={{
+            flexBasis: "100%",
+            fontWeight: "bold",
+            marginLeft: "15px",
+            fontSize: "20px",
+            alignSelf: "center",
+          }}
+        >
+          QuickChat
+        </Typography>
+      </div>
       <div
         style={{
           padding: "10px",
@@ -64,7 +141,7 @@ export default function AppDrawer(props) {
       >
         <AppCard
           width={"90%"}
-          height={150}
+          height={170}
           style={{
             display: "flex",
           }}
@@ -81,7 +158,12 @@ export default function AppDrawer(props) {
             >
               <Avatar
                 src={currentUser.image}
-                sx={{ backgroundColor: "#000", margin: "0 10px 10px 0" }}
+                sx={{
+                  backgroundColor: "#000",
+                  margin: "0 10px 10px 0",
+                  height: "60px",
+                  width: "60px",
+                }}
               />
               <div style={{ display: "flex" }}>
                 <Typography
@@ -93,8 +175,34 @@ export default function AppDrawer(props) {
                 >
                   {currentUser.firstName + " " + currentUser.lastName}
                 </Typography>
-                <SettingsOutlinedIcon onClick={() => {setOpenSwitchUserDialog(true)}} />
+                <SettingsOutlinedIcon
+                  onClick={() => {
+                    setOpenSwitchUserDialog(true);
+                  }}
+                />
               </div>
+              <Typography
+                sx={{
+                  flexBasis: "100%",
+                  marginRight: "5px",
+                  fontSize: "12px",
+                  marginTop: "5px",
+                }}
+              >
+                {currentUser?.company?.title}
+              </Typography>
+              <Stack
+                direction="row"
+                spacing={1}
+                alignItems="center"
+                sx={{ marginTop: "5px" }}
+              >
+                <AntSwitch
+                  defaultChecked
+                  inputProps={{ "aria-label": "ant design" }}
+                />
+                <Typography sx={{ fontSize: 12 }}>Active</Typography>
+              </Stack>
             </div>
           ) : null}
         </AppCard>
@@ -154,7 +262,8 @@ export default function AppDrawer(props) {
     </div>
   );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{ display: "flex" }}>
