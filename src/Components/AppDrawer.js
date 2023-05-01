@@ -34,6 +34,10 @@ import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 import Switch from "@mui/material/Switch";
 import BoltIcon from "@mui/icons-material/Bolt";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import Button from "@mui/material/Button";
+import InventoryIcon from "@mui/icons-material/Inventory";
 
 const drawerWidth = 240;
 
@@ -90,6 +94,7 @@ export default function AppDrawer(props) {
   };
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.currentUser);
+  const selectedUser = useSelector((state) => state.selectedUser);
   const users = useSelector((state) => state.users);
   React.useEffect(() => {
     dispatch(getUsers());
@@ -105,7 +110,7 @@ export default function AppDrawer(props) {
       <div
         style={{
           marginTop: "10px",
-          display: "inline-block",
+          display: "flex",
           justifyContent: "center",
           marginLeft: "20px",
         }}
@@ -353,12 +358,54 @@ export default function AppDrawer(props) {
       >
         <AppCard
           width={"calc(100% - 20)"}
-          height={"20%"}
-          style={{ margin: "0px 10px 10px 0" }}
-        ></AppCard>
+          height={"25%"}
+          style={{
+            margin: "0px 10px 10px 0",
+            padding: "10px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-around",
+          }}
+        >
+          <Avatar
+            sx={{
+              bgcolor: "#c3d6ff",
+              height: "60px",
+              width: "60px",
+              color: "#000",
+              margin: "5px auto",
+            }}
+          >{`${selectedUser?.firstName?.slice(
+            0,
+            1
+          )}${selectedUser?.lastName?.slice(0, 1)}`}</Avatar>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <MailOutlineIcon sx={{ height: "16px", width: "16px" }} />
+            <Typography sx={{ fontSize: "12px", marginLeft: "5px" }}>
+              {selectedUser?.email}
+            </Typography>
+          </div>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <AccountCircleIcon sx={{ height: "16px", width: "16px" }} />
+            <Typography sx={{ fontSize: "12px", marginLeft: "5px" }}>
+              {selectedUser?.firstName + " " + selectedUser?.lastName}
+            </Typography>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "10px",
+            }}
+          >
+            <Button variant="outlined" endIcon={<InventoryIcon />}>
+              Archive
+            </Button>
+          </div>
+        </AppCard>
         <AppCard
           width={"calc(100% - 20)"}
-          height={"60%"}
+          height={"55%"}
           style={{ margin: "0px 10px 0px 0" }}
         ></AppCard>
         <AppCard
