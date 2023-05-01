@@ -109,7 +109,7 @@ function Main() {
         })
       ) : (
         <Typography sx={{ textAlign: "center" }}>
-          You have no messages with {selectedUser.firstName}, enter a message
+          You have no messages with {selectedUser?.firstName}, enter a message
           below to start a conversation
         </Typography>
       )}

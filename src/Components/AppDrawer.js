@@ -434,8 +434,9 @@ export default function AppDrawer(props) {
               onClick={() => {
                 navigator.clipboard.writeText(
                   "https://www.test.quick-chat.com"
-                );
-                alert("Link copied!");
+                ).then(() => {
+                  alert("Link copied!");
+                });
               }}
               variant="contained"
               endIcon={<InsertLinkIcon />}
