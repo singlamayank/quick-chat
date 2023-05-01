@@ -12,7 +12,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Avatar from "@mui/material/Avatar";
 import ListItemText from "@mui/material/ListItemText";
-import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -22,11 +21,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AppCard from "./AppCard";
 import { getWindowDimensions } from "../helper";
-import MessageBubble from "./MessageBubble";
 import Main from "./Main";
 import { getUsers, setCurrentUser } from "../Redux/chatActions";
 import { useDispatch, useSelector } from "react-redux";
-import ContactButton from "./ContactButton";
 import SideNavUsers from "./SideNavUsers";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import SwitchUserDialog from "./SwitchUserDialog";
@@ -38,6 +35,7 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Button from "@mui/material/Button";
 import InventoryIcon from "@mui/icons-material/Inventory";
+import InsertLinkIcon from "@mui/icons-material/InsertLink";
 
 const drawerWidth = 240;
 
@@ -335,7 +333,7 @@ export default function AppDrawer(props) {
         component="main"
         sx={{
           flexGrow: 1,
-          width: { sm: `calc(80% - ${drawerWidth + 20}px)` },
+          width: { sm: `calc(75% - ${drawerWidth + 20}px)` },
           height: {
             xs: getWindowDimensions().height - 76,
             sm: getWindowDimensions().height - 20,
@@ -348,7 +346,7 @@ export default function AppDrawer(props) {
       <Box
         component="section"
         sx={{
-          width: "20%",
+          width: "25%",
           display: { sm: "flex", xs: "none" },
           flexDirection: "column",
           marginTop: "10px",
@@ -411,8 +409,41 @@ export default function AppDrawer(props) {
         <AppCard
           width={"calc(100% - 20)"}
           height={"20%"}
-          style={{ margin: "10px 10px 0px 0" }}
-        ></AppCard>
+          style={{
+            margin: "10px 10px 0px 0",
+            padding: "20px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-around",
+          }}
+        >
+          <Typography sx={{ textAlign: "center", fontWeight: "bold" }}>
+            Onboard Clients
+          </Typography>
+          <Typography sx={{ textAlign: "center", fontSize: "12px" }}>
+            Share the link with prospectus and discuss all the stuff
+          </Typography>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "10px",
+            }}
+          >
+            <Button
+              onClick={() => {
+                navigator.clipboard.writeText(
+                  "https://www.test.quick-chat.com"
+                );
+                alert("Link copied!");
+              }}
+              variant="contained"
+              endIcon={<InsertLinkIcon />}
+            >
+              Copy Link
+            </Button>
+          </div>
+        </AppCard>
       </Box>
       <SwitchUserDialog
         open={openSwitchUserDialog}
