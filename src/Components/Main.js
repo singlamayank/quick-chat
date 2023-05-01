@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AppCard from "./AppCard";
 import MessageBubble from "./MessageBubble";
-import { InputAdornment, TextField, Snackbar } from "@mui/material";
+import { InputAdornment, TextField, Snackbar, Typography } from "@mui/material";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
 import AttachmentIcon from "@mui/icons-material/Attachment";
 import Button from "@mui/material/Button";
@@ -92,20 +92,27 @@ function Main() {
         </AppCard>
       </form>
 
-      {filteredChats?.map((chat, index) => {
-        return (
-          <MessageBubble
-            key={chat.timestamp || index}
-            alignLeft={chat?.sender_id !== currentUser?.id}
-            message={chat.message}
-            image={
-              chat?.sender_id === currentUser?.id
-                ? currentUser.image
-                : selectedUser.image
-            }
-          />
-        );
-      })}
+      {filteredChats?.length ? (
+        filteredChats?.map((chat, index) => {
+          return (
+            <MessageBubble
+              key={chat.timestamp || index}
+              alignLeft={chat?.sender_id !== currentUser?.id}
+              message={chat.message}
+              image={
+                chat?.sender_id === currentUser?.id
+                  ? currentUser.image
+                  : selectedUser.image
+              }
+            />
+          );
+        })
+      ) : (
+        <Typography sx={{ textAlign: "center" }}>
+          You have no messages with {selectedUser.firstName}, enter a message
+          below to start a conversation
+        </Typography>
+      )}
       <Snackbar
         open={showSnackBar}
         autoHideDuration={3000}
