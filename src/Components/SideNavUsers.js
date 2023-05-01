@@ -12,7 +12,7 @@ function SideNavUsers() {
       chats?.reduce((ids, item) => {
         if (
           ids?.findIndex((i) => i === item.receiver_id) === -1 &&
-          item.receiver_id !== currentUser.id
+          item.receiver_id !== currentUser?.id
         ) {
           return [...ids, item.receiver_id];
         }
@@ -21,27 +21,36 @@ function SideNavUsers() {
     [chats, currentUser?.id]
   );
   const filteredTopUsers = filteredTopUserIdsFromChats?.map((item) =>
-    users.find((user) => item === user.id)
+    users.find((user) => item === user?.id)
   );
   const filteredUsers = React.useMemo(() => {
     let topUsers = [...(filteredTopUsers || [])];
     users.forEach((usr) => {
       if (
-        topUsers.findIndex((i) => i.id === usr.id) === -1 &&
-        usr.id !== currentUser.id
+        topUsers.findIndex((i) => i?.id === usr?.id) === -1 &&
+        usr?.id !== currentUser?.id
       ) {
         topUsers.push(usr);
       }
     });
-    return topUsers;
-  }, [currentUser?.id, filteredTopUsers, users]);
+    let finalUsersObject = topUsers?.map?.((item) => {
+      const unSeenCount = chats?.filter(
+        (chat) =>
+          chat?.seen === false &&
+          chat?.receiver_id === item?.id
+      ).length;
+      return { ...item, unSeenCount };
+    });
+    return finalUsersObject;
+  }, [chats, currentUser?.id, filteredTopUsers, users]);
   const dispatch = useDispatch();
   return filteredUsers.map((user) => (
     <ContactButton
-      key={user.id.toString()}
+      key={user?.id.toString()}
       userData={user}
       selected={selectedUser?.id === user?.id}
       onClick={() => dispatch(setSelectedUser(user))}
+      // badgeText={user.unSeenCount}
     />
   ));
 }

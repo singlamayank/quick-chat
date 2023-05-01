@@ -12,10 +12,18 @@ export const getUsers = () => (dispatch, getState) => {
     .catch((e) => console.log(e));
 };
 
-export const setSelectedUser = (user) => (dispatch) => {
+export const setSelectedUser = (user) => (dispatch, getState) => {
+  const { chats } = getState();
+  const newChatsObject = chats?.map((chat) => {
+    if (chat.receiver_id === user.id) {
+      return { ...chat, seen: true };
+    }
+    return chat;
+  });
   return dispatch({
     type: "SET_SELECTED_USER",
     payload: user,
+    chats: newChatsObject,
   });
 };
 
@@ -54,6 +62,7 @@ export const updateChatInState =
       receiver_id,
       message,
       timestamp: new Date(),
+      seen: false,
     };
     return dispatch(updateChats(message_object));
   };
