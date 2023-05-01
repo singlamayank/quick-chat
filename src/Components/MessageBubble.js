@@ -14,13 +14,13 @@ function MessageBubble({ alignLeft, message, image }) {
       <AppCard
         style={{
           maxWidth: "70%",
-          backgroundColor: alignLeft ? "#000" : "#0004",
+          backgroundColor: alignLeft ? "#fff" : "#1a233c",
           margin: alignLeft ? "0 auto 0 0" : "0 0 0 auto",
           display: "table",
           padding: "10px",
         }}
       >
-        <Typography sx={{ color: alignLeft ? "#fff" : "#000" }}>
+        <Typography sx={{ color: alignLeft ? "#1a233c" : "#fff" }}>
           {message}
         </Typography>
       </AppCard>
