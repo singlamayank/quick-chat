@@ -396,7 +396,7 @@ export default function AppDrawer(props) {
               marginTop: "10px",
             }}
           >
-            <Button variant="outlined" endIcon={<InventoryIcon />}>
+            <Button variant="outlined" endIcon={<InventoryIcon />} sx={{backgroundColor: '#fff'}}>
               Archive
             </Button>
           </div>
