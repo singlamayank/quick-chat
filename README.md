@@ -5,7 +5,9 @@ As shown in screenshot below:
 2. Switch user on click of settings button shown in current user profile.
 3. See the basic details of user you are chatting to.
 4. Send button click will create a fake chat bubble.
-![image](https://github.com/singlamayank/quick-chat/assets/20686232/bd03c627-9545-4867-a7ce-4f72c757bf09)
+
+<img width="1429" alt="Screenshot 2023-06-18 at 11 40 36 AM" src="https://github.com/singlamayank/quick-chat/assets/20686232/560461f1-9206-43ac-9fca-321e34c87a68">
+
 
 ## After cloning this repository kindly run:
 
